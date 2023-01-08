@@ -21,7 +21,7 @@ const run = async () => {
   try {
     const db = client.db("taskDb");
 
-    const productCollection = db.collection("user");
+    const productCollection = db.collection("product");
     const cartCollection = db.collection("cart");
 
     app.get("/product/:id", async (req, res) => {
