@@ -46,11 +46,25 @@ const run = async () => {
       res.send(result);
     });
 
-    app.get("/products", async (req, res) => {
+    /*  app.get("/products", async (req, res) => {
       const cursor = productCollection.find({});
       const product = await cursor.toArray();
 
       res.send({ status: true, data: product });
+    }); */
+
+    app.get("/products", async (req, res) => {
+      const { limit } = req.query;
+      let product = null;
+
+      if (limit) {
+        product = productCollection.find({}).limit(parseInt(limit, 10));
+      } else {
+        product = productCollection.find({});
+      }
+
+      const products = await product.toArray();
+      res.send(products);
     });
 
     app.get("/cart", async (req, res) => {
